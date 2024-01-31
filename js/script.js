@@ -11,7 +11,7 @@ const searchAction = async () => {
 
     const mainContainer = document.getElementById('style-scroll');
     if (mainContainer) {
-        mainContainer.innerHTML = '';
+        mainContainer.remove();
     }
 
     // let character_url = `https://gateway.marvel.com/v1/public/characters?ts=1&name=${character.value}&hash=${hash}&apikey=${apikey}`;
