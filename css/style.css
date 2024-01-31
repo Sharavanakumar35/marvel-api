@@ -13,6 +13,16 @@ body {
     border-radius: 4rem;
     padding: 10px;
 }
+#marvel-logo {
+    width: 400px;
+    height: 284px;
+}
+@media (max-width: 767px) {
+    #marvel-logo {
+        width: 100%; 
+        height: auto;
+    }
+}
 .main {
     width: 95%;
     height: 5rem;
