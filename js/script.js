@@ -9,19 +9,51 @@ const searchAction = async () => {
     const character = document.getElementById('character');
     character.classList.toggle("show");
 
+    const mainContainer = document.getElementById('style-scroll');
+    if (mainContainer) {
+        mainContainer.innerHTML = '';
+    }
+
     // let character_url = `https://gateway.marvel.com/v1/public/characters?ts=1&name=${character.value}&hash=${hash}&apikey=${apikey}`;
     let comics_url = `https://gateway.marvel.com/v1/public/comics?ts=1&hash=${hash}&title=${character.value}&apikey=${apikey}`;
     try {
+        const marvel = document.getElementById('marvel');
+
+        const loadingIndicator = document.createElement('div');
+        loadingIndicator.style.margin = '5rem';
+        loadingIndicator.style.textAlign = 'center';
+        
+        const loaderImage = document.createElement('img');
+        loaderImage.src = './assets/ironman-loader.gif';
+        loaderImage.height = 50;
+        loaderImage.alt = 'Loading...';
+        loadingIndicator.appendChild(loaderImage);
+        
+        marvel.appendChild(loadingIndicator);
+        
+    
         const response = await fetch(comics_url);
         const resJson = await response.json();
-        const comicsContainer = document.getElementById('comics');
+    
+        loadingIndicator.remove();
 
         if (resJson.code === 200) {
+            const mainContainer = document.createElement('div');
+            mainContainer.classList.add('d-flex', 'justify-content-center', 'wrap-container');
+            mainContainer.id = 'style-scroll';
+
+            var comicsContainer = document.createElement('div');
+            comicsContainer.classList.add('row');
+            comicsContainer.id = 'comics';
+
+            mainContainer.appendChild(comicsContainer);
+            marvel.appendChild(mainContainer);
+
             const comicsList = resJson.data.results.map(comic => {
                 if (!comic.title.includes('Previews')) {
 
-                    const cardSpace = document.createElement('div');
-                    cardSpace.className = 'col-lg-3 col-md-4 col-sm-6';
+                const cardSpace = document.createElement('div');
+                cardSpace.className = 'col-lg-3 col-md-4 col-sm-6';
 
                 let card = document.createElement("div");
                 card.className = "card";
